@@ -1,5 +1,7 @@
 using System;
-usting System.Collections.Generic;
+using System.Collections.Generic;
+using System.Linq;
+using Advantage.API.Models;
 
 namespace Advantage.API
 {
@@ -33,29 +35,44 @@ namespace Advantage.API
             return bizName;
         }
 
-        internal static string MakreCustomerEmail(string customerName)
+        internal static string MakeCustomerEmail(string customerName)
         {
-            return $"contract@{customerName.ToLowe()}.com";
+            return $"contact@{customerName.ToLower()}.com";
         }
 
         internal static string GetRandomState()
         {
-            retun GerRandom(usStates);
+            return GetRandom(usStates);
         }
 
-        internal static decimal GerRandomOrderTotal()
+        internal static decimal GetRandomOrderTotal()
         {
             return _rand.Next(100, 5000);
         }
 
-        internal static DateTime GerRandomOrderPlaced()
+        internal static DateTime GetRandomOrderPlaced()
         {
+            var end = DateTime.Now;
+            var start = end.AddDays(-90);
 
+            TimeSpan possibleSpan = end - start;
+            TimeSpan newSpan = new TimeSpan(0, _rand.Next(0, (int)possibleSpan.TotalMinutes), 0);
+
+            return start + newSpan;
         }
 
-        internal static DateTime? GerRandomOrderCompleted(DateTime orderPlaced)
+        internal static DateTime? GetRandomOrderCompleted(DateTime orderPlaced)
         {
-            
+            var now = DateTime.Now;
+            var minLeadTime = TimeSpan.FromDays(7);
+            var timePassed = now - orderPlaced;
+
+            if (timePassed < minLeadTime)
+            {
+                return null;
+            }
+
+            return orderPlaced.AddDays(_rand.Next(7, 14));
         }
 
         private static readonly List<string> usStates = new List<string> ()

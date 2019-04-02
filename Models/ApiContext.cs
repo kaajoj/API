@@ -6,8 +6,8 @@ namespace Advantage.API.Models
     {
         public ApiContext(DbContextOptions<ApiContext> options) : base(options) { }
 
-        public DbSet<Customer> Customer { get; set; }
-        public DbSet<Order> Order { get; set; }
-        public DbSet<Server> Server { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Server> Servers { get; set; }
     }
 }
