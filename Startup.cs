@@ -56,6 +56,10 @@ namespace Advantage.API
             app.UseAuthorization();
 
             seed.SeedData(20, 1000);
+
+            app.UseMvc(routes => routes.MapRoute(
+                "default", "api/{controller}/{action}/{id?}"
+            ));
         }
     }
 }
