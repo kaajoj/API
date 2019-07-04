@@ -44,7 +44,7 @@ namespace Advantage.API.Controllers
 
             var groupedResult = orders.GroupBy(o => o.Customer.State)
                 .ToList()
-                .Selelect(grp => new{
+                .Select(grp => new{
                     State = grp.Key,
                     Total = grp.Sum(x => x.Total)
                 }).OrderByDescending(res => res.Total)
@@ -60,7 +60,7 @@ namespace Advantage.API.Controllers
 
             var groupedResult = orders.GroupBy(o => o.Customer.Id)
                 .ToList()
-                .Selelect(grp => new{
+                .Select(grp => new{
                     Name = _ctx.Customers.Find(grp.Key).Name,
                     Total = grp.Sum(x => x.Total)
                 }).OrderByDescending(res => res.Total)
@@ -70,7 +70,7 @@ namespace Advantage.API.Controllers
             return Ok(groupedResult);    
         }
 
-        [HttpGet("GetOrder/{}", Name="GetOrder")]
+        [HttpGet("GetOrder/{id}", Name="GetOrder")]
         public IActionResult GetOrder(int id)
         {
             var order = _ctx.Orders.Include(o => o.Customer)
